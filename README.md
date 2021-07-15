@@ -20,5 +20,5 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# 这是一个vue单页面通过配置vue.config.js转变成多页面应用
+## 1) 纯测试
