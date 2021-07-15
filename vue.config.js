@@ -1,9 +1,10 @@
 const path = require('path')
 const CreateTemplate = require('./createTemplate')
 const routes = require('./src/routes')
-
+const { pages } = require('./pages.dev');
 
 let prodPages = {};
+let devPages = {};
 
 routes.routes.forEach(route=>{
     const name = route.name
@@ -14,13 +15,13 @@ routes.routes.forEach(route=>{
     }
 })
 
-console.log(prodPages)
+pages.forEach(page=>{ devPages[page] = prodPages[page] })
+console.log(process.env.NODE_ENV );
 
 module.exports = {
     configureWebpack : config => {
-        console.log(config)
         config.resolve.alias = Object.assign({},config.resolve.alias,{ '@': path.resolve(__dirname, '/src') }) 
         config.plugins.push(new CreateTemplate())
     },
-    pages: prodPages
+    pages: process.env.NODE_ENV === 'production'  ? prodPages : devPages
 }
